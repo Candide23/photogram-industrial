@@ -32,6 +32,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  mount_uploader :avatar_image, ImageUploader       
   has_many :own_photos, class_name: "Photo", foreign_key: "owner_id"   
   has_many :own_photos, foreign_key: :owner_id, class_name: "Photo"
 
