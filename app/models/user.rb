@@ -55,6 +55,20 @@ class User < ApplicationRecord
 
   has_many :discover, -> { distinct }, through: :leaders, source: :liked_photos
 
+    has_many :pending_sent_follow_requests,
+           -> { where({ :status => "pending" }) },
+           class_name:  "FollowRequest",
+           foreign_key: "sender_id"
+
+  has_many :pending,
+           through: :pending_sent_follow_requests,
+           source:  :recipient
+
+  has_many :pending_received_follow_requests,
+         -> { where({ :status => "pending" }) },
+            :class_name  => "FollowRequest",
+            :foreign_key => "recipient_id" 
+
   validates :username, presence: true, uniqueness: true
 
   

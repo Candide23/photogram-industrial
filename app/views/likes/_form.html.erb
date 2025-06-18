@@ -1,12 +1,11 @@
-<div id="<%= dom_id like %>">
-  <p>
-    <strong>Fan:</strong>
-    <%= like.fan_id %>
-  </p>
+<%= form_with(model: like) do |form| %>
+  <%= form.hidden_field :fan_id %>
 
-  <p>
-    <strong>Photo:</strong>
-    <%= like.photo %>
-  </p>
+  <%= form.hidden_field :photo_id %>
 
-</div>
+  <%= form.button class: "btn btn-link link-underline-dark link-underline-opacity-0 link-underline-opacity-100-hover" do %>
+    <i class="far fa-heart fa-fw"></i>
+
+    Like
+  <% end %>
+<% end %>
