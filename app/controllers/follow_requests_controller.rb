@@ -21,16 +21,15 @@ class FollowRequestsController < ApplicationController
 
   # POST /follow_requests or /follow_requests.json
   def create
-    @follow_request = FollowRequest.new(follow_request_params)
+    @follow_request = FollowRequest.new
+    @follow_request.recipient_id = params.fetch("follow_request").fetch("recipient_id")
+    @follow_request.sender = current_user
+    @follow_request.status = "pending"
 
-    respond_to do |format|
-      if @follow_request.save
-        format.html { redirect_to @follow_request, notice: "Follow request was successfully created." }
-        format.json { render :show, status: :created, location: @follow_request }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @follow_request.errors, status: :unprocessable_entity }
-      end
+    if @follow_request.save
+      redirect_back fallback_location: root_path 
+    else
+      redirect_back fallback_location: root_path
     end
   end
 
