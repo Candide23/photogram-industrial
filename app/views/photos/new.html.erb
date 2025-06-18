@@ -1,13 +1,11 @@
-<div class="row mb-4">
-  <div class="col-md-6 offset-md-3">
-    <h1 class="display-4">
-      new photo
-    </h1>
+<% content_for :title, "New photo" %>
 
-    <%= render 'form', photo: @photo %>
+<h1>New photo</h1>
 
-    <hr>
+<%= render "form", photo: @photo %>
 
-    <%= link_to 'Back', :back, class: "btn btn-outline-secondary" %>
-  </div>
+<br>
+
+<div>
+  <%= link_to "Back to photos", photos_path %>
 </div>
