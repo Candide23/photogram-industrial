@@ -1,5 +1,25 @@
 <p id="notice"><%= notice %></p>
 
+<p style="color: green"><%= notice %></p>
+
+<ul class="nav nav-pills nav-justified">
+  <li class="nav-item">
+      <%= link_to "Add post", new_photo_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+     <%= link_to "Your profile", user_path(current_user.username), class: "nav-link" %>
+   </li>
+   <li class="nav-item">
+     <%= link_to "Liked", liked_path(current_user.username), class: "nav-link" %>
+   </li>
+   <li class="nav-item">
+     <%= link_to "Feed", feed_path(current_user.username),  class: "nav-link" %>
+   </li>
+   <li class="nav-item">
+     <%= link_to "Discover", discover_path(current_user.username), class: "nav-link" %>
+   </li>
+</ul>
+
 <% content_for :title, "Photos" %>
 
 <h1>Photos</h1>
