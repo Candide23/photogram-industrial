@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   
   get "/:username" => "users#show", as: :user
+  get ":username/liked" => "users#liked", as: :liked
 end
