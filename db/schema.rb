@@ -224,7 +224,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_16_144013) do
     t.string "avatar_image"
     t.string "bio"
     t.string "website"
-    t.boolean "private"
+    t.boolean "private", default: true
     t.integer "likes_count", default: 0
     t.integer "comments_count", default: 0
     t.datetime "created_at", null: false
