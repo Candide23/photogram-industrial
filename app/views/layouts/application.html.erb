@@ -23,6 +23,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render partial: "shared/navbar" %>
+    <%= render partial: "shared/cdn_assets" %>
+  <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
