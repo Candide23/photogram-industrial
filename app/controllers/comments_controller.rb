@@ -59,13 +59,14 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def comment_params
-      params.expect(comment: [ :author_id, :photo_id, :body ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comment
+    @comment = Comment.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def comment_params
+    params.expect(comment: [:author_id, :photo_id, :body])
+  end
 end
