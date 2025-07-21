@@ -22,10 +22,11 @@ class FollowRequestsController < ApplicationController
   # POST /follow_requests or /follow_requests.json
   def create
     @follow_request = FollowRequest.new(follow_request_params)
+    @follow_request.sender = current_user
 
     respond_to do |format|
       if @follow_request.save
-        format.html { redirect_to @follow_request, notice: "Follow request was successfully created." }
+        format.html { redirect_back fallback_location: root_path, notice: "Follow request was successfully created." }
         format.json { render :show, status: :created, location: @follow_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class FollowRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @follow_request.update(follow_request_params)
-        format.html { redirect_to @follow_request, notice: "Follow request was successfully updated." }
+        format.html { redirect_back fallback_location: root_path, notice: "Follow request was successfully updated." }
         format.json { render :show, status: :ok, location: @follow_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +53,21 @@ class FollowRequestsController < ApplicationController
     @follow_request.destroy!
 
     respond_to do |format|
-      format.html { redirect_to follow_requests_path, status: :see_other, notice: "Follow request was successfully destroyed." }
+      format.html { redirect_back fallback_location: root_path, status: :see_other, notice: "Follow request was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_follow_request
-      @follow_request = FollowRequest.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def follow_request_params
-      params.expect(follow_request: [ :recipient_id, :sender_id, :status ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_follow_request
+    @follow_request = FollowRequest.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def follow_request_params
+    # sender_id not needed anymore since we are doing `@follow_request.sender = current_user` in create
+    params.expect(follow_request: [:recipient_id, :status])
+  end
 end

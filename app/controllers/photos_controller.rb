@@ -22,6 +22,7 @@ class PhotosController < ApplicationController
   # POST /photos or /photos.json
   def create
     @photo = Photo.new(photo_params)
+    @photo.owner = current_user
 
     respond_to do |format|
       if @photo.save
@@ -58,13 +59,14 @@ class PhotosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def photo_params
-      params.expect(photo: [ :image, :comments_count, :likes_count, :caption, :owner_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_photo
+    @photo = Photo.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def photo_params
+    params.expect(photo: [:image, :comments_count, :likes_count, :caption, :owner_id])
+  end
 end

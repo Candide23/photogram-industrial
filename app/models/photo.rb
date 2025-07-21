@@ -21,9 +21,13 @@
 #
 class Photo < ApplicationRecord
   mount_uploader :image, ImageUploader
+
   belongs_to :owner, class_name: "User", counter_cache: true
+
   has_many :comments
+
   has_many :likes
+
   has_many :fans, through: :likes
 
   validates :caption, presence: true
@@ -31,4 +35,5 @@ class Photo < ApplicationRecord
 
   scope :past_week, -> { where(created_at: 1.week.ago...) }
   scope :by_likes, -> { order(likes_count: :desc) }
+  scope :latest, -> { order(created_at: :desc) }
 end
